@@ -13,7 +13,7 @@ return {
 
   -- I have a separate config.mappings file where I require which-key.
   -- With lazy the plugin will be automatically loaded when it is required somewhere
-  
+
 
   {
     "nvim-neorg/neorg",
@@ -37,18 +37,35 @@ return {
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
   "MunifTanjim/nui.nvim",
+
   {
-    "monaqa/dial.nvim",
-    -- lazy-load on keys
-    -- mode is `n` by default. For more advanced options, check the section on key mappings
-    keys = { "<C-a>", { "<C-x>", mode = "n" } },
+    "folke/noice.nvim",
+    config= function ()
+      require("noice").setup({
+        lsp = {
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        presets = {
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false, -- add a border to hover docs and signature help
+        },
+      })
+      require("notify").setup({
+        background_colour = "#000000"
+      })
+    end,
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+    }
   },
-
-
-  -- local plugins can also be configure with the dev option.
-  -- This will use {config.dev.path}/noice.nvim/ instead of fetching it from Github
-  -- With the dev option, you can easily switch between the local and installed version of a plugin
-  { "folke/noice.nvim" },
   {"moll/vim-bbye"},
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -56,6 +73,8 @@ return {
       require("indent_blankline").setup {
         show_current_context = true,
         show_current_context_start = true,
+        char = '┊',
+        show_trailing_blankline_indent = false,
       }
     end
   },
@@ -84,6 +103,27 @@ return {
   { -- Additional text objects via treesitter
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = 'nvim-treesitter',
-  }
+  },
+  {
+    "xiyaowong/nvim-transparent",
+    config = function()
+      require("transparent").setup({
+        enable = true, -- boolean: enable transparent
+        extra_groups = { -- table/string: additional groups that should be cleared
+          "all",
+        },
+        exclude = {}, -- table: groups you don't want to clear
+      })
+    end
+  },
+  "tpope/vim-surround",
+  "p00f/nvim-ts-rainbow",
+  {
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup {}
+    end
+  },
+  'numToStr/Comment.nvim',
 
 }

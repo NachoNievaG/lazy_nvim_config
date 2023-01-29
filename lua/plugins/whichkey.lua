@@ -87,13 +87,20 @@ local mappings = {
   f = {
     name = "Telescope",
     f = {
-      "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-      "Find files",
+      "<cmd>Telescope find_files <cr>","Find files"
     },
     w = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
     h = { "<cmd>Telescope help_tags theme=ivy<cr>", "Find Help" },
     d = { "<cmd>Telescope diagnostics <cr>", "Find Diagnostics" },
     p = { "<cmd>TodoTelescope keywords=TODO,FIX <cr>", "Find Pendings" },
+    n = { "<cmd>TodoTelescope keywords=NOTE,INFO <cr>", "Find Annotations" },
+    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+    R = { "<cmd>Telescope registers<cr>", "Registers" },
+    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+    C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
 
   g = {
@@ -146,28 +153,10 @@ local mappings = {
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
     p = { "<cmd>Lspsaga preview_definition<cr>", "Show Definition" },
     r = { "<cmd>Lspsaga rename<CR>", "Rename" },
-    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-    S = {
-      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-      "Workspace Symbols",
-    },
-  },
-
-  s = {
-    name = "Search",
-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-    R = { "<cmd>Telescope registers<cr>", "Registers" },
-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-    C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
 
   t = {
     name = "Terminal",
-    t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
     f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },

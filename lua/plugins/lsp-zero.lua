@@ -20,6 +20,13 @@ return {
     {'rafamadriz/friendly-snippets'}, -- Optional
   },
   config= function ()
+    local cmp= require('cmp')
+    cmp.setup{
+      mapping={
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+      }
+    }
     local lsp = require('lsp-zero')
     lsp.preset('recommended')
 
@@ -27,5 +34,7 @@ return {
     lsp.nvim_workspace()
 
     lsp.setup()
+
+
   end
 }
