@@ -30,11 +30,14 @@ return {
     local lsp = require('lsp-zero')
     lsp.preset('recommended')
 
+    -- NOTE: Given that we want lspsaga to handle this, we omit those keymaps
+    lsp.set_preferences({
+      set_lsp_keymaps = {omit = {'gd', 'K'}}
+    })
+
     -- (Optional) Configure lua language server for neovim
     lsp.nvim_workspace()
-
     lsp.setup()
-
 
   end
 }

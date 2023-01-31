@@ -1,4 +1,3 @@
-
 return {
   -- the colorscheme should be available when starting Neovim
   {
@@ -33,6 +32,11 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
+    config = function ()
+      require("neo-tree").setup({
+        close_if_last_window = true,
+      })
+    end
   },
   "nvim-lua/plenary.nvim",
   "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -42,6 +46,16 @@ return {
     "folke/noice.nvim",
     config= function ()
       require("noice").setup({
+        routes = {
+          {
+            filter = {
+              event = "msg_show",
+              kind = "",
+              find = "lines",
+            },
+            opts = { skip = true },
+          },
+        },
         lsp = {
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -56,9 +70,6 @@ return {
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = false, -- add a border to hover docs and signature help
         },
-      })
-      require("notify").setup({
-        background_colour = "#000000"
       })
     end,
   dependencies = {
@@ -124,6 +135,16 @@ return {
       require("nvim-autopairs").setup {}
     end
   },
-  'numToStr/Comment.nvim',
-
+  {
+    "glepnir/lspsaga.nvim",
+    config = function()
+        require("lspsaga").setup({})
+    end,
+    dependencies = { {"nvim-tree/nvim-web-devicons"} }
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function() require("todo-comments").setup {} end
+  }
 }
