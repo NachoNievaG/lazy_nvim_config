@@ -40,10 +40,17 @@ return {
     lsp.set_preferences({
       set_lsp_keymaps = {omit = {'gd', 'K'}}
     })
-
+    lsp.ensure_installed({
+      'gopls'
+    })
     -- (Optional) Configure lua language server for neovim
+
     lsp.nvim_workspace()
     lsp.setup()
-
+    vim.api.nvim_create_autocmd("BufWritePre",{
+      callback =function ()
+        vim.cmd [[LspZeroFormat]]
+      end
+    })
   end
 }
