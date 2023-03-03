@@ -21,11 +21,10 @@ return {
   },
   config = function()
     local cmp = require('cmp')
-    cmp.setup {
-      mapping = {
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-      },
+    local luasnip = require('luasnip')
+
+    local cmp_setup = {
+      mapping = require('lsp-zero.nvim-cmp-setup').default_mappings(),
       sources = {
         { name = "nvim_lsp" },
         { name = "luasnip" },
@@ -33,6 +32,18 @@ return {
         { name = "buffer" }
       }
     }
+
+
+    cmp_setup.mapping["<C-k>"] = cmp.mapping.select_prev_item()
+    cmp_setup.mapping["<C-j>"] = cmp.mapping.select_next_item()
+    cmp_setup.mapping["<Tab>"] = cmp.mapping(function()
+      luasnip.jump(1)
+    end, { "i", "s" })
+    cmp_setup.mapping["<S-Tab>"] = cmp.mapping(function()
+      luasnip.jump(-1)
+    end, { "i", "s" })
+
+
     local lsp = require('lsp-zero')
     lsp.preset('recommended')
 
@@ -45,8 +56,13 @@ return {
     })
     -- (Optional) Configure lua language server for neovim
 
+    lsp.setup_nvim_cmp({
+      mapping = cmp_setup.mapping,
+      sources = cmp_setup.sources
+    })
     lsp.nvim_workspace()
     lsp.setup()
+
     vim.api.nvim_create_autocmd("BufWritePre", {
       callback = function()
         vim.cmd [[LspZeroFormat]]
