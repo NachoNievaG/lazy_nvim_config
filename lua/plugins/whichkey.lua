@@ -87,7 +87,7 @@ local mappings = {
   f = {
     name = "Telescope",
     f = {
-      "<cmd>Telescope find_files <cr>","Find files"
+      "<cmd>Telescope find_files <cr>", "Find files"
     },
     w = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
     h = { "<cmd>Telescope help_tags theme=ivy<cr>", "Find Help" },
@@ -184,10 +184,9 @@ local mappings = {
 
 
 return {
-    "folke/which-key.nvim",
-    config = function ()
-    	require('which-key').setup(setup)
-    	require('which-key').register(mappings,opts)
-    end
+  "folke/which-key.nvim",
+  config = function()
+    require('which-key').setup(setup)
+    require('which-key').register(mappings, opts)
+  end
 }
-

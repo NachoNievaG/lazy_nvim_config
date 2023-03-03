@@ -32,7 +32,7 @@ return {
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-    config = function ()
+    config = function()
       require("neo-tree").setup({
         close_if_last_window = true,
       })
@@ -44,7 +44,7 @@ return {
 
   {
     "folke/noice.nvim",
-    config= function ()
+    config = function()
       require("noice").setup({
         lsp = {
           override = {
@@ -60,17 +60,17 @@ return {
           inc_rename = false, -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = false, -- add a border to hover docs and signature help
         },
-         messages = {
-            enabled = false, 
+        messages = {
+          enabled = false,
         }
       })
     end,
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
     }
   },
-  {"moll/vim-bbye"},
+  { "moll/vim-bbye" },
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
@@ -82,12 +82,12 @@ return {
       }
     end
   },
- { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" },
+  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" },
     init = function()
       require("dapui").setup()
     end
   },
-   { 'leoluz/nvim-dap-go',
+  { 'leoluz/nvim-dap-go',
     init = function()
       require("dap-go").setup()
     end
@@ -131,9 +131,9 @@ return {
   {
     "glepnir/lspsaga.nvim",
     config = function()
-        require("lspsaga").setup({})
+      require("lspsaga").setup({})
     end,
-    dependencies = { {"nvim-tree/nvim-web-devicons"} }
+    dependencies = { { "nvim-tree/nvim-web-devicons" } }
   },
   {
     "folke/todo-comments.nvim",
