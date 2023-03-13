@@ -36,13 +36,20 @@ return {
 
     cmp_setup.mapping["<C-k>"] = cmp.mapping.select_prev_item()
     cmp_setup.mapping["<C-j>"] = cmp.mapping.select_next_item()
-    cmp_setup.mapping["<Tab>"] = cmp.mapping(function()
-      luasnip.jump(1)
+    cmp_setup.mapping["<Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
     end, { "i", "s" })
-    cmp_setup.mapping["<S-Tab>"] = cmp.mapping(function()
-      luasnip.jump(-1)
+    cmp_setup.mapping["<S-Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
     end, { "i", "s" })
-
 
     local lsp = require('lsp-zero')
     lsp.preset('recommended')
