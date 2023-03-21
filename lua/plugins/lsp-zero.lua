@@ -72,6 +72,10 @@ return {
 
     vim.api.nvim_create_autocmd("BufWritePre", {
       callback = function()
+        local client = vim.lsp.get_active_clients()[1]
+        if not client then
+          return
+        end
         vim.cmd [[LspZeroFormat]]
       end
     })
