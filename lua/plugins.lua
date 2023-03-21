@@ -2,28 +2,23 @@ return {
   -- the colorscheme should be available when starting Neovim
   {
     "rebelot/kanagawa.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    priority = 1000, -- make sure to load this before all the other start plugins
+  },
+
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- load the colorscheme here
-      vim.cmd([[colorscheme kanagawa]])
+      vim.cmd([[colorscheme catppuccin]])
     end,
   },
 
   -- I have a separate config.mappings file where I require which-key.
   -- With lazy the plugin will be automatically loaded when it is required somewhere
-
-
-  {
-    "nvim-neorg/neorg",
-    -- lazy-load on filetype
-    ft = "norg",
-    -- custom config that will be executed when loading the plugin
-    config = function()
-      require("neorg").setup()
-    end,
-  },
-
   {
     "dstein64/vim-startuptime",
     -- lazy-load on a command
@@ -54,11 +49,11 @@ return {
           },
         },
         presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false, -- add a border to hover docs and signature help
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,       -- add a border to hover docs and signature help
         },
         messages = {
           enabled = false,
@@ -82,12 +77,15 @@ return {
       }
     end
   },
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
     init = function()
       require("dapui").setup()
     end
   },
-  { 'leoluz/nvim-dap-go',
+  {
+    'leoluz/nvim-dap-go',
     init = function()
       require("dap-go").setup()
     end
@@ -104,19 +102,20 @@ return {
     init = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = { "markdown" },
   },
-  { -- Additional text objects via treesitter
+  {
+    -- Additional text objects via treesitter
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = 'nvim-treesitter',
   },
   {
     "xiyaowong/nvim-transparent",
+    build = ':TransparentEnable',
     config = function()
       require("transparent").setup({
-        enable = true, -- boolean: enable transparent
         extra_groups = { -- table/string: additional groups that should be cleared
           "all",
         },
-        exclude = {}, -- table: groups you don't want to clear
+        exclude_groups = {}, -- table: groups you don't want to clear
       })
     end
   },
@@ -139,5 +138,36 @@ return {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
     config = function() require("todo-comments").setup {} end
+  },
+
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    opts = {
+      load = {
+        ["core.defaults"] = {},       -- Loads default behaviour
+        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.presenter"] = {
+          config = {
+            zen_mode = "truezen"
+          },
+        },                       -- Adds pretty icons to your documents
+        ["core.norg.dirman"] = { -- Manages Neorg workspaces
+          config = {
+            workspaces = {
+              notes = "~/notes",
+            },
+          },
+        },
+      },
+    },
+    dependencies = { { "nvim-lua/plenary.nvim" } },
+  },
+
+  {
+    "Pocco81/true-zen.nvim",
+    config = function()
+      require("true-zen").setup {}
+    end,
   }
 }

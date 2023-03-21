@@ -3,20 +3,20 @@ return {
   branch = 'v1.x',
   dependencies = {
     -- LSP Support
-    { 'neovim/nvim-lspconfig' }, -- Required
-    { 'williamboman/mason.nvim' }, -- Optional
+    { 'neovim/nvim-lspconfig' },             -- Required
+    { 'williamboman/mason.nvim' },           -- Optional
     { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
     -- Autocompletion
-    { 'hrsh7th/nvim-cmp' }, -- Required
-    { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-    { 'hrsh7th/cmp-buffer' }, -- Optional
-    { 'hrsh7th/cmp-path' }, -- Optional
+    { 'hrsh7th/nvim-cmp' },         -- Required
+    { 'hrsh7th/cmp-nvim-lsp' },     -- Required
+    { 'hrsh7th/cmp-buffer' },       -- Optional
+    { 'hrsh7th/cmp-path' },         -- Optional
     { 'saadparwaiz1/cmp_luasnip' }, -- Optional
-    { 'hrsh7th/cmp-nvim-lua' }, -- Optional
+    { 'hrsh7th/cmp-nvim-lua' },     -- Optional
 
     -- Snippets
-    { 'L3MON4D3/LuaSnip' }, -- Required
+    { 'L3MON4D3/LuaSnip' },             -- Required
     { 'rafamadriz/friendly-snippets' }, -- Optional
   },
   config = function()
@@ -28,11 +28,11 @@ return {
       sources = {
         { name = "nvim_lsp" },
         { name = "luasnip" },
+        { name = "neorg" },
         { name = "path" },
         { name = "buffer" }
       }
     }
-
 
     cmp_setup.mapping["<C-k>"] = cmp.mapping.select_prev_item()
     cmp_setup.mapping["<C-j>"] = cmp.mapping.select_next_item()
@@ -59,7 +59,9 @@ return {
       set_lsp_keymaps = { omit = { 'gd', 'K' } }
     })
     lsp.ensure_installed({
-      'gopls'
+      'gopls',
+      'lua-language-server',
+      'docker-compose-language-service',
     })
     -- (Optional) Configure lua language server for neovim
 
