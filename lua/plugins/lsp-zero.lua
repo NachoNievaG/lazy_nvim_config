@@ -60,8 +60,6 @@ return {
     })
     lsp.ensure_installed({
       'gopls',
-      'lua-language-server',
-      'docker-compose-language-service',
     })
     -- (Optional) Configure lua language server for neovim
 
