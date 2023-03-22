@@ -151,7 +151,19 @@ return {
           config = {
             zen_mode = "truezen"
           },
-        },                       -- Adds pretty icons to your documents
+        }, -- Adds pretty icons to your documents
+        ["core.norg.completion"] = {
+          config = {
+            engine = "nvim-cmp",
+            name = "[Neorg]"
+          }
+        },
+        ["core.export.markdown"] = {},
+        ["core.export"] = {
+          config = {
+            export_dir = "~/notes/exports"
+          }
+        },
         ["core.norg.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
@@ -167,7 +179,11 @@ return {
   {
     "Pocco81/true-zen.nvim",
     config = function()
-      require("true-zen").setup {}
+      require("true-zen").setup({
+        integrations = {
+          lualine = true, -- hide nvim-lualine (ataraxis)
+        },
+      })
     end,
   }
 }
