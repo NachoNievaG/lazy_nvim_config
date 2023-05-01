@@ -1,12 +1,6 @@
 return {
   -- the colorscheme should be available when starting Neovim
   {
-    "rebelot/kanagawa.nvim",
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-  },
-
-  {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,    -- make sure we load this during startup if it is your main colorscheme
@@ -30,6 +24,16 @@ return {
     config = function()
       require("neo-tree").setup({
         close_if_last_window = true,
+        event_handlers = {
+          {
+            event = "file_opened",
+            handler = function(file_path)
+              --auto close
+              require("neo-tree").close_all()
+            end
+          },
+
+        }
       })
     end
   },
@@ -185,5 +189,8 @@ return {
         },
       })
     end,
+  },
+  {
+    "christoomey/vim-tmux-navigator",
   }
 }
