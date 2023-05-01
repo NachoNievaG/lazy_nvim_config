@@ -179,6 +179,13 @@ local mappings = {
     w = { function() require("dapui").float_element "watches" end, "Watches" },
     x = { function() require("dap.ui.widgets").hover() end, "Inspect" },
   },
+  n = {
+    name = "Neorg",
+    t = { "<cmd>Neorg journal today<cr>", "Today journal" },
+    r = { "<cmd>Neorg journal tomorrow<cr>", "Tomorrow journal" },
+    y = { "<cmd>Neorg journal yesterday<cr>", "Yesterday journal" },
+    i = { "<cmd>Neorg index<cr>", "Index" },
+  },
 }
 
 
