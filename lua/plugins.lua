@@ -149,14 +149,14 @@ return {
     build = ":Neorg sync-parsers",
     opts = {
       load = {
-        ["core.defaults"] = {},       -- Loads default behaviour
-        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.defaults"] = {},  -- Loads default behaviour
+        ["core.concealer"] = {}, -- Adds pretty icons to your documents
         ["core.presenter"] = {
           config = {
             zen_mode = "truezen"
           },
         }, -- Adds pretty icons to your documents
-        ["core.norg.completion"] = {
+        ["core.completion"] = {
           config = {
             engine = "nvim-cmp",
             name = "[Neorg]"
@@ -168,7 +168,7 @@ return {
             export_dir = "~/notes/exports"
           }
         },
-        ["core.norg.dirman"] = { -- Manages Neorg workspaces
+        ["core.dirman"] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
               notes = "~/notes",

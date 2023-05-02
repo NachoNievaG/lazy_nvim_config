@@ -1,83 +1,93 @@
 return {
-  'VonHeikemen/lsp-zero.nvim',
-  branch = 'v1.x',
-  dependencies = {
-    -- LSP Support
-    { 'neovim/nvim-lspconfig' },             -- Required
-    { 'williamboman/mason.nvim' },           -- Optional
-    { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v2.x',
+    dependencies = {
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' }, -- Required
+      {
+        -- Optional
+        'williamboman/mason.nvim',
+        build = function()
+          pcall(vim.cmd, 'MasonUpdate')
+        end,
+      },
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
-    -- Autocompletion
-    { 'hrsh7th/nvim-cmp' },         -- Required
-    { 'hrsh7th/cmp-nvim-lsp' },     -- Required
-    { 'hrsh7th/cmp-buffer' },       -- Optional
-    { 'hrsh7th/cmp-path' },         -- Optional
-    { 'saadparwaiz1/cmp_luasnip' }, -- Optional
-    { 'hrsh7th/cmp-nvim-lua' },     -- Optional
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },     -- Required
+      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'L3MON4D3/LuaSnip' },     -- Required
+      { 'simrat39/rust-tools.nvim' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { "rafamadriz/friendly-snippets" }
+    },
+    config = function()
+      local lsp = require('lsp-zero').preset('minimal')
 
-    -- Snippets
-    { 'L3MON4D3/LuaSnip' },             -- Required
-    { 'rafamadriz/friendly-snippets' }, -- Optional
-  },
-  config = function()
-    local cmp = require('cmp')
-    local luasnip = require('luasnip')
+      lsp.on_attach(function(client, bufnr)
+        lsp.default_keymaps({ buffer = bufnr })
+      end)
 
-    local cmp_setup = {
-      mapping = require('lsp-zero.nvim-cmp-setup').default_mappings(),
-      sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "neorg" },
-        { name = "path" },
-        { name = "buffer" }
-      }
-    }
+      --
+      -- (Optional) Configure lua language server for neovim
+      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      lsp.setup()
 
-    cmp_setup.mapping["<C-k>"] = cmp.mapping.select_prev_item()
-    cmp_setup.mapping["<C-j>"] = cmp.mapping.select_next_item()
-    cmp_setup.mapping["<Tab>"] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { "i", "s" })
-    cmp_setup.mapping["<S-Tab>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" })
-
-    local lsp = require('lsp-zero')
-    lsp.preset('recommended')
-
-    -- NOTE: Given that we want lspsaga to handle this, we omit those keymaps
-    lsp.set_preferences({
-      set_lsp_keymaps = { omit = { 'gd', 'K' } }
-    })
-    lsp.ensure_installed({
-      'gopls',
-    })
-    -- (Optional) Configure lua language server for neovim
-
-    lsp.setup_nvim_cmp({
-      mapping = cmp_setup.mapping,
-      sources = cmp_setup.sources
-    })
-    lsp.nvim_workspace()
-    lsp.setup()
-
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      callback = function()
-        local client = vim.lsp.get_active_clients()[1]
-        if not client then
-          return
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function()
+          local client = vim.lsp.get_active_clients()[1]
+          if not client then
+            return
+          end
+          vim.cmd [[LspZeroFormat]]
         end
-        vim.cmd [[LspZeroFormat]]
-      end
-    })
-  end
+      })
+
+
+      local cmp = require('cmp')
+      local luasnip = require('luasnip')
+      local cmp_action = require('lsp-zero').cmp_action()
+      require('luasnip.loaders.from_vscode').lazy_load()
+      cmp.setup({
+        mapping = {
+          ["<C-k>"] = cmp.mapping.select_prev_item(),
+          ["<C-j>"] = cmp.mapping.select_next_item(),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+          -- Ctrl+Space to trigger completion menu
+          ['<C-Space>'] = cmp.mapping.complete(),
+
+          -- Navigate between snippet placeholder
+          ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+          ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+        },
+        snippet = {
+          expand = function(args)
+            require 'luasnip'.lsp_expand(args.body)
+          end
+        },
+        sources = {
+          { name = 'luasnip', keyword_length = 2 },
+          { name = 'path' },
+          { name = 'nvim_lsp' },
+          { name = 'buffer',  keyword_length = 3 },
+        },
+      })
+    end
+  }
 }
