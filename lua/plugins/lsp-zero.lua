@@ -18,7 +18,6 @@ return {
       { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
       { 'L3MON4D3/LuaSnip' },     -- Required
-      { 'simrat39/rust-tools.nvim' },
       { 'saadparwaiz1/cmp_luasnip' },
       { "rafamadriz/friendly-snippets" }
     },
@@ -32,6 +31,13 @@ return {
       --
       -- (Optional) Configure lua language server for neovim
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+      lsp.on_attach(function(client, bufnr)
+        lsp.default_keymaps({ buffer = bufnr })
+      end)
+
+      lsp.skip_server_setup({ 'rust_analyzer' })
+
       lsp.setup()
 
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -44,6 +50,15 @@ return {
         end
       })
 
+      local rust_tools = require('rust-tools')
+
+      rust_tools.setup({
+        server = {
+          on_attach = function()
+            vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+          end
+        }
+      })
 
       local cmp = require('cmp')
       local luasnip = require('luasnip')
@@ -82,9 +97,9 @@ return {
           end
         },
         sources = {
+          { name = 'nvim_lsp' },
           { name = 'luasnip', keyword_length = 2 },
           { name = 'path' },
-          { name = 'nvim_lsp' },
           { name = 'buffer',  keyword_length = 3 },
         },
       })

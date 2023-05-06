@@ -192,5 +192,10 @@ return {
   },
   {
     "christoomey/vim-tmux-navigator",
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    ft = "rs"
   }
+
 }
