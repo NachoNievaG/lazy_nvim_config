@@ -196,6 +196,14 @@ return {
   {
     "simrat39/rust-tools.nvim",
     ft = "rs"
-  }
+  },
+  {
+    "saecki/crates.nvim",
+    ft = "rs,toml",
+    dependencies = { { 'nvim-lua/plenary.nvim' } },
+    config = function()
+      require('crates').setup()
+    end,
+  },
 
 }
