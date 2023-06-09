@@ -11,6 +11,13 @@ return {
     end,
   },
 
+  {
+    "theprimeagen/harpoon",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("harpoon").setup()
+    end,
+  },
   -- I have a separate config.mappings file where I require which-key.
   -- With lazy the plugin will be automatically loaded when it is required somewhere
   {

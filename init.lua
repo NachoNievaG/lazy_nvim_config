@@ -18,5 +18,5 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require "options"
-require "keymaps"
 require("lazy").setup("plugins")
+require "keymaps"

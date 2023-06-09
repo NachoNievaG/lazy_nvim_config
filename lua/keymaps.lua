@@ -20,11 +20,16 @@ keymap("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>", opts)
 keymap("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>", opts)
 keymap("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>", opts)
 keymap("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>", opts)
-
---keymap("n", "<C-h>", "<C-w>h", opts)
---keymap("n", "<C-j>", "<C-w>j", opts)
---keymap("n", "<C-k>", "<C-w>k", opts)
---keymap("n", "<C-l>", "<C-w>l", opts)
+-- Harpoon
+keymap("n", "<leader>1", ":lua require('harpoon.ui').nav_file(1)<CR>", opts)
+keymap("n", "<leader>2", ":lua require('harpoon.ui').nav_file(2)<CR>", opts)
+keymap("n", "<leader>3", ":lua require('harpoon.ui').nav_file(3)<CR>", opts)
+keymap("n", "<leader>4", ":lua require('harpoon.ui').nav_file(4)<CR>", opts)
+keymap("n", "<leader>5", ":lua require('harpoon.ui').nav_file(5)<CR>", opts)
+keymap("n", "<leader>6", ":lua require('harpoon.ui').nav_file(6)<CR>", opts)
+keymap("n", "<leader>7", ":lua require('harpoon.ui').nav_file(7)<CR>", opts)
+keymap("n", "<leader>8", ":lua require('harpoon.ui').nav_file(8)<CR>", opts)
+keymap("n", "<leader>9", ":lua require('harpoon.ui').nav_file(9)<CR>", opts)
 
 
 keymap("n", "<leader>E", ":Lex 30<cr>", opts)

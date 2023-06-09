@@ -186,6 +186,11 @@ local mappings = {
     y = { "<cmd>Neorg journal yesterday<cr>", "Yesterday journal" },
     i = { "<cmd>Neorg index<cr>", "Index" },
   },
+  m = {
+    name = "Harpoon",
+    a = { function() require("harpoon.mark").add_file() end, "Add File" },
+    o = { function() require("harpoon.ui").toggle_quick_menu() end, "Menu" },
+  },
 }
 
 
