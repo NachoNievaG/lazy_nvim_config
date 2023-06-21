@@ -30,22 +30,39 @@ return {
 
       --
       -- (Optional) Configure lua language server for neovim
-      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
       end)
+      local lspconfig = require "lspconfig"
+      local util = require "lspconfig/util"
+      lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+
 
       lsp.skip_server_setup({ 'rust_analyzer' })
 
-      lsp.setup()
 
-      vim.api.nvim_create_autocmd("BufWritePre", {
+      lsp.setup()
+      lspconfig.gopls.setup {
+        cmd = { "gopls", "serve" },
+        filetypes = { "go", "gomod" },
+        root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+            usePlaceholders = true,
+          },
+        },
+      }
+
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = '*.go',
         callback = function()
-          local client = vim.lsp.get_active_clients()[1]
-          if not client then
-            return
-          end
+          vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
           vim.cmd [[LspZeroFormat]]
         end
       })
