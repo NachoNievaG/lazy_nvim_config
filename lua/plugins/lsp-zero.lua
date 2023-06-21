@@ -73,6 +73,12 @@ return {
         server = {
           on_attach = function()
             vim.keymap.set('n', '<leader>ca', rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              pattern = '*.rs',
+              callback = function()
+                vim.cmd [[LspZeroFormat]]
+              end
+            })
           end
         }
       })
