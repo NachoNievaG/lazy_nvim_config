@@ -10,7 +10,7 @@ return {
       vim.cmd([[colorscheme catppuccin]])
     end,
   },
-
+  { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
   {
     "theprimeagen/harpoon",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -139,13 +139,6 @@ return {
     end
   },
   {
-    "glepnir/lspsaga.nvim",
-    config = function()
-      require("lspsaga").setup({})
-    end,
-    dependencies = { { "nvim-tree/nvim-web-devicons" } }
-  },
-  {
     "folke/todo-comments.nvim",
     dependencies = "nvim-lua/plenary.nvim",
     config = function() require("todo-comments").setup {} end
@@ -212,5 +205,6 @@ return {
       require('crates').setup()
     end,
   },
+  { 'nvim-telescope/telescope-ui-select.nvim' }
 
 }

@@ -80,8 +80,12 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
-keymap("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", opts)
-keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "gr", builtin.lsp_references, { noremap = true, silent = true })
+vim.keymap.set("n", "gi", builtin.lsp_implementations, { noremap = true, silent = true })
+vim.keymap.set("n", "gd", builtin.lsp_definitions, { noremap = true, silent = true })
+vim.keymap.set("n", "gb", builtin.buffers, opts)
+keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- Terminal --
 -- Better terminal navigation
 keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)

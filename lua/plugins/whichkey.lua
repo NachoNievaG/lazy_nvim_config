@@ -74,7 +74,7 @@ local opts = {
 }
 
 local mappings = {
-  ["e"] = { "<cmd>Neotree toggle reveal<cr>", "Explorer" },
+  ["e"] = { "<cmd>Neotree toggle reveal right<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q<CR>", "Quit" },
   ["W"] = { "<cmd>wq!<CR>", "Save & quit" },
@@ -127,7 +127,7 @@ local mappings = {
   },
   l = {
     name = "LSP",
-    a = { "<cmd>Lspsaga code_action<CR>", "Code Action" },
+    a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', "Code Action" },
     d = {
       "<cmd>Telescope lsp_document_diagnostics<cr>",
       "Document Diagnostics",
@@ -136,21 +136,18 @@ local mappings = {
       "<cmd>Telescope lsp_workspace_diagnostics<cr>",
       "Workspace Diagnostics",
     },
-    f = { "<cmd>Lspsaga lsp_finder<CR>", "Finder" },
-    i = { "<cmd>Lspsaga signature_help<cr>", "Signature Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
     j = {
-      "<cmd>Lspsaga diagnostic_jump_next<CR>",
+      "<cmd>lua vim.diagnostic.goto_next()<cr>",
       "Next Diagnostic",
     },
     k = {
-      "<cmd>Lspsaga diagnostic_jump_prev<CR>",
+      "<cmd>lua vim.diagnostic.goto_prev()<cr>",
       "Prev Diagnostic",
     },
     l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
-    p = { "<cmd>Lspsaga preview_definition<cr>", "Show Definition" },
-    r = { "<cmd>Lspsaga rename<CR>", "Rename" },
+    r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
   },
   t = {
     name = "Terminal",

@@ -1,9 +1,13 @@
 return {
   "nvim-telescope/telescope.nvim",
   config = function()
-
     local actions = require "telescope.actions"
     require('telescope').setup {
+      extensions = {
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown {}
+        }
+      },
       defaults = {
         prompt_prefix = " ",
         selection_caret = " ",
@@ -71,5 +75,6 @@ return {
         },
       },
     }
-  end
+    require("telescope").load_extension("ui-select")
+  end,
 }
