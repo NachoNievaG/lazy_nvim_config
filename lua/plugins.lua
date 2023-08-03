@@ -30,18 +30,21 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     config = function()
       require("neo-tree").setup({
-        close_if_last_window = true,
-        event_handlers = {
-          {
-            event = "file_opened",
-            handler = function(file_path)
-              --auto close
-              require("neo-tree").close_all()
-            end
-          },
-
-        }
-      })
+        close_if_last_window = false,
+        window = {
+          width = 25,
+        },
+        -- event_handlers = {
+        --   {
+            -- event = "file_opened",
+            -- handler = function(file_path)
+            --   --auto close
+            --   require("neo-tree").close_all()
+            -- end
+          -- },
+        -- },
+      }
+      )
     end
   },
   "nvim-lua/plenary.nvim",
@@ -189,6 +192,15 @@ return {
         },
       })
     end,
+  },
+  {
+    "github/copilot.vim",
+    --config = function()
+      -- require("").setup({
+      --   integrations = {
+      --   },
+      -- })
+    -- end,
   },
   {
     "christoomey/vim-tmux-navigator",

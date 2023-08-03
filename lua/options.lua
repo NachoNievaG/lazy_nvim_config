@@ -36,6 +36,10 @@ o.sidescrolloff = 8
 o.guifont = "monospace:h17"
 o.timeoutlen = 50
 o.cmdheight = 0
+o.foldmethod = "indent"
+o.foldnestmax = 3
+o.foldlevelstart = 99
+
 vim.g.timeoutlen = 150
 vim.g.ttimeoutlen = 150
 vim.diagnostic.config({

@@ -106,6 +106,7 @@ return {
             end
           end, { "i", "s" }),
           ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<C-l>'] = cmp.mapping.confirm({ select = true }),
 
           -- Ctrl+Space to trigger completion menu
           ['<C-Space>'] = cmp.mapping.complete(),

@@ -18,6 +18,8 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require "options"
+require "commands"
+require "copilot"
 require("lazy").setup("plugins")
 require "keymaps"
 require "core.colors"

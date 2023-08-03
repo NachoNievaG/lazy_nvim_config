@@ -74,7 +74,8 @@ local opts = {
 }
 
 local mappings = {
-  ["e"] = { "<cmd>Neotree toggle reveal right<cr>", "Explorer" },
+  ["e"] = { "<cmd>Neotree toggle reveal<cr>", "Explorer" },
+  ["r"] = { "<cmd>Neotree reveal<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q<CR>", "Quit" },
   ["W"] = { "<cmd>wq!<CR>", "Save & quit" },
@@ -175,6 +176,10 @@ local mappings = {
     u = { function() require("dapui").toggle() end, "Toggle Debugger UI" },
     w = { function() require("dapui").float_element "watches" end, "Watches" },
     x = { function() require("dap.ui.widgets").hover() end, "Inspect" },
+  },
+  y = {
+    name = "Yanking",
+    f = { "<cmd>YankFileRelativePath <cr>", "Yank current file relative path"}
   },
   n = {
     name = "Neorg",
