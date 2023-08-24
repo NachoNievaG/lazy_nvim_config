@@ -97,3 +97,7 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<leader>c", ":Bdelete!<CR>", opts)
+
+keymap("i", "ı", "<cmd>call copilot#Previous()<CR>",opts)
+keymap("i", "ø", "<cmd>call copilot#Next()<CR>",opts)
+vim.cmd[[imap <silent><script><expr> π copilot#Accept("\<CR>")]]

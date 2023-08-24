@@ -188,6 +188,10 @@ local mappings = {
     a = { function() require("harpoon.mark").add_file() end, "Add File" },
     o = { function() require("harpoon.ui").toggle_quick_menu() end, "Menu" },
   },
+  d ={
+    name = "dadbod",
+    b = { "<cmd>DBUIToggle<cr>", "Toggle" },
+  }
 }
 
 

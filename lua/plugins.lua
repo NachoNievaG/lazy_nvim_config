@@ -173,6 +173,7 @@ return {
             workspaces = {
               notes = "~/notes",
             },
+            default_workspace = "notes"
           },
         },
       },
@@ -205,6 +206,12 @@ return {
       require('crates').setup()
     end,
   },
-  { 'nvim-telescope/telescope-ui-select.nvim' }
+  { 'nvim-telescope/telescope-ui-select.nvim' },
+  {"github/copilot.vim"},
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = { "tpope/vim-dadbod", "kristijanhusak/vim-dadbod-completion", "tpope/vim-dotenv" },
+  },
+
 
 }
